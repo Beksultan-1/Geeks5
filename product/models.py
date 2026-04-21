@@ -21,3 +21,12 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Review for {self.product.title}'
+
+class Review(models.Model):
+    text = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    # Добавляем звезды
+    stars = models.IntegerField(default=5, choices=[(i, i * '*') for i in range(1, 6)])
+
+    def __str__(self):
+        return f'{self.stars} stars for {self.product.title}'
